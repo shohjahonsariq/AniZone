@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(120deg, #232526 0%, #414345 100%);
+    color: #fff;
+    min-height: 100vh;
+}
+.container {
+    max-width: 1300px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+.navbar-pro {
+    background: rgba(30, 30, 40, 0.85);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    border-bottom: 2px solid #f29824;
+    border-radius: 0 0 24px 24px;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+}
+.navbar-brand {
+    font-weight: 700;
+    font-size: 2rem;
+    color: #f29824 !important;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-shadow: 0 2px 12px #f29824a0;
+}
+.navbar-nav .nav-link {
+    color: #fff !important;
+    font-weight: 500;
+    border-radius: 12px;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    padding: 0.5rem 1.1rem;
+    position: relative;
+}
+.navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+    background: #f29824;
+    color: #fff !important;
+}
+.nav-icon {
+    margin-right: 7px;
+}
+.modal-content {
+    border-radius: 22px;
+    background: rgba(40, 40, 50, 0.95);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.18);
+    border: 1.5px solid #f29824;
+    color: #fff;
+    backdrop-filter: blur(10px);
+}
+.modal-title {
+    color: #f29824;
+    font-weight: 600;
+}
+.list-group-item {
+    border-radius: 10px !important;
+    margin-bottom: 7px;
+    background: rgba(30, 30, 40, 0.85);
+    color: #fff;
+    border: none;
+    transition: background 0.2s;
+}
+.list-group-item:hover {
+    background: #f29824;
+    color: #fff;
+}
+.badge.bg-primary {
+    background: #f29824;
+    font-weight: 600;
+}
+.btn-close {
+    filter: invert(1);
+}
+.card {
+    background: rgba(24, 24, 28, 0.95);
+    border-radius: 22px;
+    box-shadow: 0 4px 24px 0 rgba(255,76,96,0.10), 0 1.5px 0 #f29824;
+    border: none;
+}
+.btn-primary {
+    background: #f29824;
+    border: none;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: box-shadow 0.2s, background 0.2s;
+}
+.btn-primary:hover {
+    background: #f29824;
+}
+.btn-primary:focus, .btn-primary:active {
+  background-color:  #f29824 !important;
+}
+.btn-primary:active {
+  background-color:  #f29824 !important;
+}
+.btn-outline-dark {
+    color: #fff;
+    border-color: #444;
+    border-radius: 10px;
+    background: rgba(30,30,40,0.7);
+}
+.btn-outline-dark:hover {
+    background: #f29824;
+    border-color: #f29824;
+    color: #fff;
+}
+.footer-navbar-style {
+    background: linear-gradient(90deg, #232526 0%, #414345 100%);
+    box-shadow: 0 -2px 16px 0 rgba(0,0,0,0.15);
+    border-radius: 24px 24px 0 0;
+    color: #fff;
+    margin-top: 4rem;
+    position: relative;
+    overflow: hidden;
+}
+.footer-navbar-logo {
+    color: #f29824;
+    font-size: 1.5rem;
+}
+.footer-navbar-title {
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 1px;
+    color: #f29824;
+}
+.footer-navbar-link {
+    color: #ff8c42;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.05rem;
+    border-radius: 8px;
+    padding: 0.2em 0.9em;
+    transition: background 0.18s, color 0.18s;
+    display: inline-block;
+}
+.footer-navbar-link:hover {
+    color: #fff;
+    background: #f29824;
+    text-decoration: none;
+}
+.footer-navbar-copyright {
+    color: #fff;
+    font-size: 0.97rem;
+    margin-top: 0.7em;
+    letter-spacing: 0.5px;
+}
+.category-modal-content {
+    background: #232526;
+    border-radius: 1.5rem;
+    border: 2px solid #f29824;
+    backdrop-filter: blur(8px);
+    padding-bottom: 0.5rem;
+}
+.category-modal-title {
+    color: #f29824;
+    font-weight: 700;
+    font-size: 1.25rem;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+}
+.category-modal-close {
+    opacity: 0.8;
+    transition: opacity 0.18s;
+}
+.category-modal-close:hover {
+    opacity: 1;
+}
+.category-modal-list {
+    background: none;
+    border: none;
+    padding-right: 0;
+    margin-bottom: 0;
+}
+.category-modal-scroll {
+    max-height: 340px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #f29824 #232526;
+}
+.category-modal-scroll::-webkit-scrollbar {
+    width: 7px;
+    border-radius: 8px;
+    background: #232526;
+}
+.category-modal-scroll::-webkit-scrollbar-thumb {
+    background: #f29824;
+    border-radius: 8px;
+}
+.category-modal-list-item {
+    background: rgba(30,30,40,0.85);
+    color: #fff;
+    border: none;
+    border-radius: 0.9rem !important;
+    margin-bottom: 7px;
+    transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+    font-size: 1.07rem;
+    padding: 0.5rem 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.category-modal-list-item:hover {
+    background: #f29824;
+    color: #fff;
+}
+.category-modal-link {
+    color: #ff8c42;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.18s;
+}
+.category-modal-link:hover {
+    color: #fff;
+}
+.category-modal-badge {
+    background: #f29824;
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 0.4em 0.9em;
+}
+.category-modal-selected {
+    border: 2px solid #f29824;
+    background: rgba(255,140,66,0.08) !important;
+}
+@media (max-width: 600px) {
+    .container {
+        max-width: 100vw;
+        padding-left: 0.3rem;
+        padding-right: 0.3rem;
+    }
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+    .category-modal-content {
+        max-width: 99vw;
+        padding: 0.5rem 0.1rem 0.5rem 0.1rem;
+    }
+    .category-modal-badge-grid {
+        font-size: 0.93rem;
+        padding: 0.4em 0.2em;
+    }
+    .category-modal-title {
+        font-size: 1.05rem;
+    }
+    .mobile-bottom-navbar-label {
+        font-size: 0.75rem;
+    }
+    .category-modal-grid {
+        gap: 7px;
+    }
+}
+.category-modal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    justify-items: center;
+    align-items: center;
+}
+.category-modal-badge-grid {
+    width: 100%;
+    min-width: 0;
+    text-align: center;
+    font-size: 1rem;
+    padding: 0.5em 0.5em;
+    border-radius: 1.1em;
+    transition: background 0.18s, color 0.18s, border 0.18s;
+}
+@media (max-width: 900px) {
+    .container {
+        max-width: 98vw;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+    .category-modal-content {
+        max-width: 98vw;
+    }
+}
+@media (max-width: 600px) {
+    .category-modal-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.category-modal-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.modal-dialog {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    justify-content: center;
+}
+@media (max-width: 600px) {
+  .navbar-pro {
+    justify-content: center;
+    padding-bottom: 0.2rem;
+  }
+  .navbar-brand {
+    margin: 0 auto;
+    font-size: 1.5rem;
+  }
+  .navbar-nav, .navbar-toggler, .collapse {
+    display: none !important;
+  }
+  .footer-navbar-style {
+    display: none;
+  }
+  .mobile-bottom-navbar {
+    display: flex !important;
+  }
+}
+.mobile-bottom-navbar {
+  display: none;
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 9999;
+  background: #232526;
+  border-top: 2px solid #f29824;
+  box-shadow: 0 -2px 16px 0 rgba(0,0,0,0.15);
+  height: 60px;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 10px;
+}
+.mobile-bottom-navbar a {
+  flex: 1 1 0;
+  text-align: center;
+  color: #f29824;
+  font-size: 1.45rem;
+  padding: 0.2em 0;
+  text-decoration: none;
+  transition: color 0.18s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+.mobile-bottom-navbar a.active, .mobile-bottom-navbar a:focus, .mobile-bottom-navbar a:hover {
+  color: #fff;
+}
+.mobile-bottom-navbar-label {
+  font-size: 0.85rem;
+  margin-top: 2px;
+  font-weight: 500;
+}
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-pro shadow-sm mb-4">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <i class="fa-solid fa-film"></i> AniZone
+    </a>
+    <button class="navbar-toggler d-lg-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse d-none d-lg-block" id="navbarNav">
+      <ul class="navbar-nav ms-auto gap-1">
+        <li class="nav-item">
+          <a class="nav-link" href="/">
+            <i class="fa-solid fa-house nav-icon"></i>Bosh sahifa
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="#" class="nav-link" data-bs-toggle="modal" data-bs-target="#categoryModal">
+            <i class="fa-solid fa-layer-group nav-icon"></i>Kategoriyalar
+          </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'profile' %}">
+            <i class="fa-solid fa-user nav-icon"></i>Profil
+          </a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link text-success" href="{% url 'account_login' %}">
+            <i class="fa-solid fa-right-to-bracket nav-icon"></i>Kirish
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-info" href="{% url 'account_signup' %}">
+            <i class="fa-solid fa-user-plus nav-icon"></i>Ro‘yxatdan o‘tish
+          </a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobil pastki navbar -->
+<div class="mobile-bottom-navbar">
+  <a href="/" class="{% if request.path == '/' %}active{% endif %}">
+    <i class="fa-solid fa-house"></i>
+    <span class="mobile-bottom-navbar-label">Bosh</span>
+  </a>
+  <a href="#" data-bs-toggle="modal" data-bs-target="#categoryModal">
+    <i class="fa-solid fa-layer-group"></i>
+    <span class="mobile-bottom-navbar-label">Kategoriyalar</span>
+  </a>
+  {% if user.is_authenticated %}
+  <a href="{% url 'profile' %}" class="{% if request.path == '/profile/' %}active{% endif %}">
+    <i class="fa-solid fa-user"></i>
+    <span class="mobile-bottom-navbar-label">Profil</span>
+  </a>
+  {% else %}
+  <a href="{% url 'account_login' %}">
+    <i class="fa-solid fa-right-to-bracket"></i>
+    <span class="mobile-bottom-navbar-label">Kirish</span>
+  </a>
+  {% endif %}
+</div>
+
+<!-- Modal oynasi -->
+<div class="modal fade" id="categoryModal" tabindex="-1" aria-labelledby="categoryModalLabel" aria-hidden="true" >
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content category-modal-content">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title category-modal-title"><i class="fa-solid fa-layer-group me-2"></i>Kategoriyalar</h5>
+        <button type="button" class="btn-close category-modal-close" data-bs-dismiss="modal" aria-label="Yopish"></button>
+      </div>
+      <div class="modal-body pt-2 pb-4">
+        <div class="category-modal-grid category-modal-scroll" style="max-height:400px;overflow-y:auto;">
+          <a href="{% url 'home' %}"
+            class="category-modal-link category-modal-badge-grid bg-secondary text-light">
+            <i class="fa-solid fa-globe me-2"></i>Barcha
+          </a>
+          {% for category in categories %}
+            <a href="{% url 'home' %}?category={{ category.id }}"
+               class="category-modal-link category-modal-badge-grid {% if selected_category == category.id %}bg-warning text-dark border border-2 border-warning{% else %}bg-dark text-warning border border-2 border-warning{% endif %}">
+              <i class="fa-solid fa-tag me-2"></i>{{ category.name }}
+            </a>
+          {% empty %}
+            <span class="category-modal-badge-grid bg-dark py-2 px-3">Hech qanday kategoriya yo‘q</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+
+<footer class="footer-navbar-style text-center py-4 mt-5">
+    <div class="container">
+        <div class="mb-2 d-flex justify-content-center align-items-center gap-2">
+            <span class="footer-navbar-logo"><i class="fa-solid fa-film"></i></span>
+            <span class="footer-navbar-title">AniZone</span>
+        </div>
+        <div class="mb-2 d-flex justify-content-center gap-3">
+            <a href="/" class="footer-navbar-link">Bosh sahifa</a>
+            <a href="#" class="footer-navbar-link" data-bs-toggle="modal" data-bs-target="#categoryModal">Kategoriyalar</a>
+        </div>
+        <div class="footer-navbar-copyright">
+            &copy; 2025 AniZone. Barcha huquqlar himoyalangan.
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+</body>
+</html>
+

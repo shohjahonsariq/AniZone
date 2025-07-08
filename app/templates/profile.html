@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}AniZone - {{ user.get_full_name|default:user.username }}{% endblock %}
+
+{% block content %}
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    <div class="profile-pro-card mx-auto">
+        <div class="d-flex flex-column align-items-center gap-3 mb-3">
+            <div class="profile-pro-avatar-wrap">
+                {% if user.userprofile.profile_image %}
+                    <img src="{{ user.userprofile.profile_image }}" class="profile-pro-avatar" alt="Profil rasmi">
+                {% else %}
+                    <img src="https://ui-avatars.com/api/?name={{ user.get_full_name|default:user.username|urlencode }}&background=ff4c60&color=fff&size=120" class="profile-pro-avatar" alt="Profil rasmi">
+                {% endif %}
+            </div>
+            <div class="text-center">
+                <h2 class="profile-pro-name mb-1">{{ user.get_full_name|default:user.username }}</h2>
+                <div class="profile-pro-email">{{ user.email }}</div>
+            </div>
+        </div>
+        <a href="{% url 'account_logout' %}" class="btn profile-pro-logout w-100 mt-2">Chiqish</a>
+    </div>
+</div>
+
+<style>
+.profile-pro-card {
+    background: rgba(34,36,40,0.97);
+    border-radius: 2rem;
+    box-shadow: 0 8px 32px 0 #23252640, 0 2px 24px 0 #ff4c6040;
+    border: 2.5px solid #f29824;
+    padding: 2.5rem 2.2rem 2rem 2.2rem;
+    max-width: 420px;
+    width: 100%;
+    margin: 2rem auto;
+    transition: box-shadow 0.2s;
+}
+.profile-pro-avatar-wrap {
+    border-radius: 50%;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.profile-pro-avatar {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #fff;
+
+}
+.profile-pro-name {
+    font-weight: 700;
+    color: #f29824;
+    font-size: 1.5rem;
+    letter-spacing: 1px;
+}
+.profile-pro-email {
+    color: #ff8c42;
+    font-size: 1.08rem;
+    margin-bottom: 0.2rem;
+}
+.profile-pro-logout {
+    background: #f29824;
+    color: #fff;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    transition: background 0.18s, box-shadow 0.18s;
+    padding: 0.6em 1.2em;
+    font-size: 1.08rem;
+}
+.profile-pro-logout:hover {
+    background: #f29824;
+    color: #fff;
+}
+@media (max-width: 600px) {
+    .profile-pro-card {
+        border-radius: 1.2rem;
+        padding: 1.2rem 0.7rem 1rem 0.7rem;
+        max-width: 98vw;
+    }
+    .profile-pro-avatar {
+        width: 80px;
+        height: 80px;
+    }
+}
+</style>
+{% endblock %}

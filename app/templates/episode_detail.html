@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ episode.anime.title }} {{ episode.episode_number }}-qism {% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="episode-card shadow-lg border-0 p-0">
+    <div class="episode-video-wrap">
+      <div class="ratio ratio-16x9 episode-video-ratio">
+        <iframe src="{{ episode.video_url }}" frameborder="0" allowfullscreen class="episode-video"></iframe>
+      </div>
+    </div>
+    <div class="p-4 pt-3 pb-2 episode-info-block">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <a href="{% url 'anime_detail' episode.anime.pk %}" class="btn btn-outline-light btn-sm rounded-pill px-3 episode-back-btn">
+          <i class="fa fa-arrow-left me-1"></i> Orqaga
+        </a>
+        <span class="badge episode-badge">
+          {{ episode.episode_number }}-qism
+        </span>
+      </div>
+      <h4 class="mb-1 episode-anime-title">{{ episode.anime.title }}</h4>
+      <h5 class="mb-3 episode-title">{{ episode.title }}</h5>
+    </div>
+  </div>
+</div>
+
+<style>
+.episode-card {
+  max-width: 700px;
+  width: 100%;
+  background: linear-gradient(120deg, #232526 0%, #414345 100%);
+  border-radius: 2rem;
+  overflow: hidden;
+  box-shadow: 0 8px 32px 0 #23252640, 0 2px 24px 0 #ff4c6040;
+  border: 1px solid #ffffff43;
+  margin: 0 auto;
+  padding: 0;
+}
+.episode-video-wrap {
+  background: #18181c;
+  border-radius: 2rem 2rem 0 0;
+  overflow: hidden;
+}
+.episode-video-ratio {
+  border-radius: 2rem 2rem 0 0;
+  overflow: hidden;
+}
+.episode-video {
+  border-radius: 2rem 2rem 0 0;
+  width: 100%;
+  height: 100%;
+}
+.episode-info-block {
+  background: none;
+}
+.episode-back-btn {
+  font-weight: 600;
+  border: 2px solid #f29824;
+  color: #f29824;
+  background: none;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+}
+.episode-back-btn:hover, .episode-back-btn:focus {
+  background: #f29824;
+  color: #fff;
+  border: 2px solid #f29824;
+}
+.episode-badge {
+  background: linear-gradient(90deg, #ff8c42 0%, #ff8c42 100%);
+  color: #fff;
+  font-size: 1rem;
+  border-radius: 1em;
+  padding: 0.5em 1.1em;
+  font-weight:600;
+  letter-spacing:0.5px;
+  box-shadow: 0 2px 8px #ff4c6040;
+}
+.episode-anime-title {
+  color: #f29824;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
+}
+.episode-title {
+  color: #fff;
+  font-weight: 500;
+  font-size: 1.05rem;
+  margin-bottom: 0.5rem;
+}
+@media (max-width: 700px) {
+  .episode-card {
+    max-width: 99vw;
+    border-radius: 1.2rem;
+  }
+  .episode-video-wrap, .episode-video-ratio, .episode-video {
+    border-radius: 1.2rem 1.2rem 0 0;
+  }
+}
+@media (max-width: 500px) {
+  .episode-card {
+    max-width: 100vw;
+    border-radius: 0.7rem;
+  }
+  .episode-video-wrap, .episode-video-ratio, .episode-video {
+    border-radius: 0.7rem 0.7rem 0 0;
+  }
+  .episode-anime-title {
+    font-size: 1rem;
+  }
+  .episode-title {
+    font-size: 0.95rem;
+  }
+  .episode-badge {
+    font-size: 0.93rem;
+    padding: 0.4em 0.7em;
+  }
+}
+</style>
+{% endblock %}

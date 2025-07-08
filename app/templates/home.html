@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}AniZone{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <!-- 🔍 Qidiruv formasi -->
+    <form method="get" action="/" class="mb-4 d-flex justify-content-center" role="search" style="max-width: 520px; margin: 0 auto;">
+        <div class="input-group shadow search-pro-group" style="border-radius: 18px; overflow: hidden; background: rgba(30,30,40,0.85);">
+            <span class="input-group-text bg-transparent border-0 px-3" style="color: #f29824; font-size: 1.2rem;">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+            <input type="text" name="q" class="form-control border-0 search-pro-input" placeholder="Anime nomi..." value="{{ query|default:'' }}" style="background: transparent; color: #fff; font-size: 1.08rem;">
+            <button type="submit" class="btn search-pro-btn px-4" style="font-weight:600; font-size:1.08rem;">Qidirish</button>
+        </div>
+    </form>
+
+    {% if query %}
+        <div class="search-result-header d-flex align-items-center gap-3 mb-4 animate__animated animate__fadeInDown">
+            <span class="fs-5 text-white fw-semibold"><i class="fa-solid fa-magnifying-glass me-2"></i>Natijalar:</span>
+            <span class="badge search-query-badge">{{ query }} {{ animes|length }} ta</span>
+            <span class="badge search-count-badge"></span>
+        </div>
+    {% endif %}
+
+    {% if selected_category %}
+        <div class="search-result-header d-flex align-items-center gap-3 mb-4 animate__animated animate__fadeInDown">
+            <span class="fs-5 text-white fw-semibold"><i class="fa-solid fa-layer-group me-2"></i>Kategoriya:</span>
+            <span class="badge search-query-badge">
+                {{ categories|get_category_name:selected_category }}
+            </span>
+            <span class="badge search-count-badge">{{ animes|length }} ta</span>
+        </div>
+    {% endif %}
+
+    <div class="row">
+        {% for anime in animes %}
+            <div class="col-md-3 mb-3">
+                <div class="card anime-card h-100 border-0 position-relative overflow-hidden">
+                    <div class="anime-card-img-wrap position-relative" style="border-radius: 20px 20px 0 0; overflow: hidden;">
+                        <img src="{{ anime.image.url }}" class="card-img-top anime-card-img" alt="{{ anime.title }}" style=" width: 100%; object-fit: cover; filter: brightness(0.95);">
+                        <span class="position-absolute top-2 end-2 badge bg-primary shadow" style="font-size: 1rem; border-radius: 12px 0 12px 0;">{{ anime.category.name|default:'Anime' }}</span>
+                    </div>
+                    <div class="card-body d-flex flex-column" style="backdrop-filter: blur(6px); background: rgba(30,30,40,0.75); border-radius: 0 0 20px 20px;">
+                        <h6 class="card-title mb-1" style="font-weight: 700; color: #f29824">{{ anime.title }}</h6>
+                        <!-- <h6 class="mb-2" style="color: #b8b8b8; font-size: 0.95rem;">{{ anime.created_at }}</h6> -->
+                        <div class="mb-2 d-flex gap-3 align-items-center">
+                            <span class="badge bg-gradient" style="background: linear-gradient(90deg,#f29824,#f29824); color: #fff; font-weight: 500;"><i class="fa-solid fa-eye me-1"></i> {{ anime.views }}</span>
+                            <span class="badge bg-gradient" style="background: linear-gradient(90deg,#ff8c42,#f29824); color: #fff; font-weight: 500;"><i class="fa-solid fa-heart me-1"></i> {{ anime.total_likes }}</span>
+                        </div>
+                        <pre class="card-text mb-3" style="color: #eee; font-size: 0.98rem;">{{ anime.description }}</pre>
+                        <a href="{% url 'anime_detail' anime.pk %}" class="btn btn-primary mt-auto w-100 shadow" style="font-weight:600; font-size:1.08rem;">Ko‘rish <i class="fa-solid fa-arrow-right ms-1"></i></a>
+                    </div>
+                    <div class="anime-card-glow"></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    {% if not animes %}
+        <div class="alert alert-warning text-center animate__animated animate__fadeIn" role="alert" style="border-radius: 14px; font-size: 1.08rem;">
+            <i class="fa-solid fa-circle-exclamation me-2"></i>Hech qanday anime topilmadi. Boshqa so‘z kiriting.
+        </div>
+    {% endif %}
+</div>
+
+<!-- Animate.css CDN for fadeIn effect -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+<style>
+.search-pro-group {
+    border: 2px solid #f29824;
+    background: rgba(30,30,40,0.85) !important;
+    /* box-shadow: 0 2px 16px 0 #ff4c6040; */
+    transition: border 0.18s, box-shadow 0.18s;
+}
+.search-pro-input:focus {
+    outline: none;
+    box-shadow: none;
+    background: rgba(30,30,40,0.95);
+    color: #fff;
+}
+.search-pro-input::placeholder{
+    color: #f29824;
+}
+.search-pro-btn {
+    background: #f29824;
+    color: #fff;
+    border: none;
+    border-radius: 0 16px 16px 0;
+    /* box-shadow: 0 2px 8px #ff4c6040; */
+    transition: background 0.18s, box-shadow 0.18s;
+}
+.search-pro-btn:hover, .search-pro-btn:focus {
+    background: #f29824;
+    color: #fff;
+    /* box-shadow: 0 4px 16px #ff8c4270; */
+}
+.search-result-header {
+    background: rgba(30,30,40,0.85);
+    border: 2px solid #f29824;
+    border-radius: 16px;
+    padding: 0.7rem 1.3rem;
+    /* box-shadow: 0 2px 16px 0 #ff4c6040; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    align-items: center;
+    min-width: 0;
+}
+.search-result-header .badge {
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.search-query-badge {
+    background: #f29824;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 10px;
+    padding: 0.5em 1em;
+    /* box-shadow: 0 2px 8px #ff4c6040; */
+}
+.search-count-badge {
+    background: #fff;
+    color: #ff8c42;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 10px;
+    padding: 0.5em 1em;
+    /* box-shadow: 0 2px 8px #ff4c6040; */
+}
+.anime-card {
+    border-radius: 22px !important;
+    background: rgba(24,24,28,0.92) !important;
+    box-shadow: 0 4px 32px 0 rgba(255,76,96,0.10), 0 1.5px 0 #ff8c42;
+    transition: transform 0.18s cubic-bezier(.4,2,.6,1), box-shadow 0.18s;
+    overflow: visible;
+    position: relative;
+}
+.anime-card:hover {
+    transform: translateY(-7px) scale(1.025);
+    box-shadow: 0 8px 48px 0 #ff8a42a7, 0 2px 0 #ff8c42;
+    z-index: 2;
+}
+.anime-card-img-wrap {
+    background: linear-gradient(90deg,#ff8c42,#ff8c42);
+    padding: 2.5px;
+}
+.anime-card-img {
+    border-radius: 18px 18px 0 0;
+    box-shadow: 0 2px 12px #ff4c6040;
+    transition: filter 0.2s;
+}
+.anime-card:hover .anime-card-img {
+    filter: brightness(1.05) saturate(1.1);
+}
+.anime-card-glow {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 22px;
+    pointer-events: none;
+    box-shadow: 0 0 32px 8px #ff4c6070, 0 0 0 0 #ff8c42;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+.anime-card:hover .anime-card-glow {
+    opacity: 1;
+}
+.card-text{
+    font-family: 'Poppins', sans-serif;
+    height: 65px;
+    overflow: hidden;
+    font-size: 1em;
+}
+@media (max-width: 600px) {
+    .search-result-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+        padding: 0.7rem 0.7rem;
+    }
+    .search-result-header .badge {
+        width: 100%;
+        text-align: left;
+        font-size: 0.97rem;
+    }
+}
+</style>
+{% endblock %}
